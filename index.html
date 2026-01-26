@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Cerca SDS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 15px;
+    }
+    h1 { text-align: center; }
+  </style>
+</head>
+<body>
+
+<h1>Cerca Schede di Sicurezza (SDS)</h1>
+
+<div id="search"></div>
+
+<script>
+  new PagefindUI({
+    element: "#search",
+    showSubResults: true
+  });
+</script>
+
+</body>
+</html>
