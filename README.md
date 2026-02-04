@@ -1,1 +1,0 @@
-# Schede-Di-Sicurezza
