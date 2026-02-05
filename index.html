@@ -1,96 +1,48 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Cerca SDS</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 15px;
-    }
-    h1 { text-align: center; }
-    ul { list-style-type: none; padding: 0; }
-    li { margin: 5px 0; }
-    li a { text-decoration: none; color: #007bff; font-weight: bold; }
-    li a:hover { text-decoration: underline; }
-    #searchBox {
-      width: 100%;
-      padding: 8px;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-    #searchResults li {
-      margin: 3px 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Fornitori</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 15px; }
+        h1 { text-align: center; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 5px 0; }
+        li a { text-decoration: none; color: #007bff; font-weight: bold; }
+        li a:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
 
-<h1>Cerca Schede di Sicurezza (SDS)</h1>
-
-<!-- BARRA DI RICERCA PDF -->
-<h2>🔍 Cerca PDF</h2>
-<input type="text" id="searchBox" placeholder="Scrivi il nome del prodotto...">
-<ul id="searchResults"></ul>
-
-<p>Seleziona il fornitore per vedere le schede dei prodotti:</p>
-
+<h1>Elenco Fornitori</h1>
 <ul>
-  <li><a href="SCHEDE_FITOSANITARI/ADAMA_ITALIA/index.html">ADAMA ITALIA</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/ALBAUGH/index.html">ALBAUGH</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/ARYSTA/index.html">ARYSTA</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/ASCENZA/index.html">ASCENZA</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/BASF/index.html">BASF</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/BAYER/index.html">BAYER</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/CERTIS_BELCHIM/index.html">CERTIS BELCHIM</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/CORTEVA/index.html">CORTEVA</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/DIACHEM/index.html">DIACHEM</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/GLOBACHEM/index.html">GLOBACHEM</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/GOWAN/index.html">GOWAN</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/HELM/index.html">HELM</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/KOLLANT/index.html">KOLLANT</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/MANICA_SPA/index.html">MANICA SPA</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/NUFARM_ITALIA/index.html">NUFARM ITALIA</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/ORO_AGRI/index.html">ORO AGRI</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/RAINBOW_AGROSCIENCES/index.html">RAINBOW AGROSCIENCES</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/SCAM/index.html">SCAM</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/SERBIOS/index.html">SERBIOS</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/SHARDA/index.html">SHARDA</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/SIPCAM/index.html">SIPCAM</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/SUMITOMO/index.html">SUMITOMO</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/SYNGENTA/index.html">SYNGENTA</a></li>
-  <li><a href="SCHEDE_FITOSANITARI/UPL/index.html">UPL</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/ADAMA_ITALIA/index.html">ADAMA_ITALIA</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/ALBAUGH/index.html">ALBAUGH</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/ARYSTA/index.html">ARYSTA</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/ASCENZA/index.html">ASCENZA</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/BASF/index.html">BASF</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/BAYER/index.html">BAYER</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/CERTIS_BELCHIM/index.html">CERTIS_BELCHIM</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/CORTEVA/index.html">CORTEVA</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/DIACHEM/index.html">DIACHEM</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/FMC/index.html">FMC</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/GLOBACHEM/index.html">GLOBACHEM</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/GOWAN/index.html">GOWAN</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/HELM/index.html">HELM</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/KOLLANT/index.html">KOLLANT</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/MANICA_SPA/index.html">MANICA_SPA</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/NUFARM_ITALIA/index.html">NUFARM_ITALIA</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/ORO_AGRI/index.html">ORO_AGRI</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/RAINBOW_AGROSCIENCES/index.html">RAINBOW_AGROSCIENCES</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/SCAM/index.html">SCAM</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/SERBIOS/index.html">SERBIOS</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/SHARDA/index.html">SHARDA</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/SIPCAM/index.html">SIPCAM</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/SUMITOMO/index.html">SUMITOMO</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/SYNGENTA/index.html">SYNGENTA</a></li>
+    <li><a href="SCHEDE_FITOSANITARI/UPL/index.html">UPL</a></li>
+
 </ul>
-
-<!-- SCRIPT DI RICERCA PDF -->
-<script src="pdfList.js"></script>
-<script>
-const searchBox = document.getElementById("searchBox");
-const results = document.getElementById("searchResults");
-
-searchBox.addEventListener("input", function() {
-    const query = this.value.toLowerCase();
-    results.innerHTML = ""; // pulisce i risultati
-
-    if(query === "") return;
-
-    const filtered = pdfList.filter(pdf => pdf.toLowerCase().includes(query));
-
-    if(filtered.length === 0){
-        results.innerHTML = "<li>Nessun PDF trovato</li>";
-        return;
-    }
-
-    filtered.forEach(pdf => {
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="${pdf}" target="_blank">${pdf.split("/").pop()}</a>`;
-        results.appendChild(li);
-    });
-});
-</script>
-
 </body>
 </html>
