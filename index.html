@@ -14,16 +14,38 @@
             color: #222;
         }
 
-        h1 {
+        /* TESTATA AZIENDALE */
+        .azienda {
             text-align: center;
-            margin-bottom: 5px;
+            margin-bottom: 30px;
+            padding: 0 10px;
         }
 
-        .subtitle {
-            text-align: center;
+        .azienda h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #1f3a5f;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        .azienda p {
+            margin-top: 6px;
+            font-size: 13px;
             color: #555;
-            margin-bottom: 30px;
-            font-size: 15px;
+        }
+
+        @media (min-width: 600px) {
+            .azienda h1 {
+                font-size: 28px;
+            }
+            .azienda p {
+                font-size: 14px;
+            }
+        }
+
+        h2 {
+            margin-top: 0;
         }
 
         ul { list-style-type: none; padding: 0; }
@@ -71,17 +93,17 @@
 
 <body>
 
-<h1>Schede di Sicurezza Prodotti Fitosanitari</h1>
-<p class="subtitle">
-    Andrea Aldrigo & C. SAS – Grossisti e Assistenza 
-</p>
+<!-- TESTATA AZIENDALE -->
+<header class="azienda">
+    <h1>Andrea Aldrigo &amp; C. S.A.S.</h1>
+    <p>Grossista di fitosanitari per l’agricoltura</p>
+</header>
 
 <h2>🔍 Ricerca rapida SCHEDE DI SICUREZZA</h2>
 <input type="text" id="searchBox" placeholder="Scrivi il nome del prodotto...">
 <ul id="searchResults"></ul>
 
 <p><strong>Seleziona il fornitore:</strong></p>
-
 <ul>
     <li><a href="SCHEDE_FITOSANITARI/ADAMA_ITALIA/index.html">ADAMA ITALIA</a></li>
     <li><a href="SCHEDE_FITOSANITARI/ALBAUGH/index.html">ALBAUGH</a></li>
@@ -121,7 +143,7 @@
     </div>
 
     <div class="contatto">
-        <strong>Andrea Aldrigo – Agronomo e Vendite</strong><br>
+        <strong>Andrea Aldrigo – Agronomo e Reparto Vendite</strong><br>
         Responsabile commerciale<br>
         📧 goeand@gmail.com<br>
         ☎️ +39 348 442 5820
@@ -132,7 +154,6 @@
     © Andrea Aldrigo & C. SAS – Tutti i diritti riservati
 </footer>
 
-<!-- Script ricerca PDF -->
 <script src="pdfList.js"></script>
 <script>
 const searchBox = document.getElementById("searchBox");
