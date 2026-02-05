@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Cerca SDS</title>
+    <title>Fornitori</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 15px; }
@@ -11,19 +11,11 @@
         li { margin: 5px 0; }
         li a { text-decoration: none; color: #007bff; font-weight: bold; }
         li a:hover { text-decoration: underline; }
-        #searchBox { width: 100%; padding: 8px; font-size: 16px; margin-bottom: 10px; }
-        #searchResults li { margin: 3px 0; }
     </style>
 </head>
 <body>
 
-<h1>Cerca Schede di Sicurezza (SDS)</h1>
-
-<h2>🔍 Cerca PDF</h2>
-<input type="text" id="searchBox" placeholder="Scrivi il nome del prodotto...">
-<ul id="searchResults"></ul>
-
-<p>Seleziona il fornitore per vedere le schede dei prodotti:</p>
+<h1>Elenco Fornitori</h1>
 <ul>
     <li><a href="SCHEDE_FITOSANITARI/ADAMA_ITALIA/index.html">ADAMA_ITALIA</a></li>
     <li><a href="SCHEDE_FITOSANITARI/ALBAUGH/index.html">ALBAUGH</a></li>
@@ -52,33 +44,5 @@
     <li><a href="SCHEDE_FITOSANITARI/UPL/index.html">UPL</a></li>
 
 </ul>
-
-<!-- Script di ricerca PDF -->
-<script src="pdfList.js"></script>
-<script>
-const searchBox = document.getElementById("searchBox");
-const results = document.getElementById("searchResults");
-
-searchBox.addEventListener("input", function() {
-    const query = this.value.toLowerCase();
-    results.innerHTML = "";
-
-    if(query === "") return;
-
-    const filtered = pdfList.filter(pdf => pdf.toLowerCase().includes(query));
-
-    if(filtered.length === 0){
-        results.innerHTML = "<li>Nessun PDF trovato</li>";
-        return;
-    }
-
-    filtered.forEach(pdf => {
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="${pdf}" target="_blank">${pdf.split("/").pop()}</a>`;
-        results.appendChild(li);
-    });
-});
-</script>
-
 </body>
 </html>
