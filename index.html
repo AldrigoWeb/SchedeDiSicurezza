@@ -9,77 +9,108 @@
         body {
             font-family: Arial, sans-serif;
             max-width: 900px;
-            margin: 40px auto;
+            margin: 30px auto;
             padding: 0 15px;
             color: #222;
         }
 
-        /* TESTATA AZIENDALE */
+        /* TESTATA */
         .azienda {
             text-align: center;
             margin-bottom: 30px;
-            padding: 0 10px;
         }
 
         .azienda h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 26px;
             color: #1f3a5f;
             letter-spacing: 0.5px;
-            line-height: 1.2;
         }
 
         .azienda p {
             margin-top: 6px;
-            font-size: 13px;
+            font-size: 14px;
             color: #555;
         }
 
-        @media (min-width: 600px) {
-            .azienda h1 {
-                font-size: 28px;
-            }
-            .azienda p {
-                font-size: 14px;
-            }
-        }
-
         h2 {
-            margin-top: 0;
+            font-size: 18px;
+            margin-top: 30px;
         }
 
-        ul { list-style-type: none; padding: 0; }
-        li { margin: 5px 0; }
-
-        li a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        li a:hover { text-decoration: underline; }
-
+        /* RICERCA */
         #searchBox {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             font-size: 16px;
             margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
         }
 
-        #searchResults li { margin: 3px 0; }
+        #searchResults {
+            list-style: none;
+            padding: 0;
+        }
 
+        #searchResults li {
+            margin: 4px 0;
+        }
+
+        #searchResults a {
+            text-decoration: none;
+            color: #1f3a5f;
+        }
+
+        /* FORNITORI A BOX */
+        .fornitori {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        @media (min-width: 600px) {
+            .fornitori {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .fornitori {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .fornitore {
+            display: block;
+            text-align: center;
+            padding: 14px 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #1f3a5f;
+            font-weight: bold;
+            font-size: 14px;
+            background-color: #fafafa;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .fornitore:hover {
+            background-color: #f0f4f8;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        /* CONTATTI */
         .contatti {
             margin-top: 50px;
             padding-top: 20px;
             border-top: 1px solid #ddd;
         }
 
-        .contatti h3 {
-            margin-bottom: 15px;
-        }
-
         .contatto {
             margin-bottom: 15px;
+            font-size: 14px;
         }
 
         footer {
@@ -93,44 +124,44 @@
 
 <body>
 
-<!-- TESTATA AZIENDALE -->
 <header class="azienda">
     <h1>Andrea Aldrigo &amp; C. S.A.S.</h1>
     <p>Grossista di fitosanitari per l’agricoltura</p>
 </header>
 
-<h2>🔍 Ricerca rapida SCHEDE DI SICUREZZA</h2>
-<input type="text" id="searchBox" placeholder="Scrivi il nome del prodotto...">
+<h2>🔍 Ricerca rapida schede di sicurezza</h2>
+<input type="text" id="searchBox" placeholder="Scrivi il nome del prodotto…">
 <ul id="searchResults"></ul>
 
-<p><strong>Seleziona il fornitore:</strong></p>
-<ul>
-    <li><a href="SCHEDE_FITOSANITARI/ADAMA_ITALIA/index.html">ADAMA ITALIA</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/ALBAUGH/index.html">ALBAUGH</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/ARYSTA/index.html">ARYSTA</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/ASCENZA/index.html">ASCENZA</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/BASF/index.html">BASF</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/BAYER/index.html">BAYER</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/CERTIS_BELCHIM/index.html">CERTIS BELCHIM</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/CORTEVA/index.html">CORTEVA</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/DIACHEM/index.html">DIACHEM</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/FMC/index.html">FMC</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/GLOBACHEM/index.html">GLOBACHEM</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/GOWAN/index.html">GOWAN</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/HELM/index.html">HELM</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/KOLLANT/index.html">KOLLANT</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/MANICA_SPA/index.html">MANICA SPA</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/NUFARM_ITALIA/index.html">NUFARM ITALIA</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/ORO_AGRI/index.html">ORO AGRI</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/RAINBOW_AGROSCIENCES/index.html">RAINBOW AGROSCIENCES</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/SCAM/index.html">SCAM</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/SERBIOS/index.html">SERBIOS</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/SHARDA/index.html">SHARDA</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/SIPCAM/index.html">SIPCAM</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/SUMITOMO/index.html">SUMITOMO</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/SYNGENTA/index.html">SYNGENTA</a></li>
-    <li><a href="SCHEDE_FITOSANITARI/UPL/index.html">UPL</a></li>
-</ul>
+<h2>Seleziona il fornitore</h2>
+
+<div class="fornitori">
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/ADAMA_ITALIA/index.html">ADAMA ITALIA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/ALBAUGH/index.html">ALBAUGH</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/ARYSTA/index.html">ARYSTA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/ASCENZA/index.html">ASCENZA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/BASF/index.html">BASF</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/BAYER/index.html">BAYER</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/CERTIS_BELCHIM/index.html">CERTIS BELCHIM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/CORTEVA/index.html">CORTEVA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/DIACHEM/index.html">DIACHEM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/FMC/index.html">FMC</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/GLOBACHEM/index.html">GLOBACHEM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/GOWAN/index.html">GOWAN</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/HELM/index.html">HELM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/KOLLANT/index.html">KOLLANT</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/MANICA_SPA/index.html">MANICA SPA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/NUFARM_ITALIA/index.html">NUFARM ITALIA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/ORO_AGRI/index.html">ORO AGRI</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/RAINBOW_AGROSCIENCES/index.html">RAINBOW AGROSCIENCES</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SCAM/index.html">SCAM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SERBIOS/index.html">SERBIOS</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SHARDA/index.html">SHARDA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SIPCAM/index.html">SIPCAM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SUMITOMO/index.html">SUMITOMO</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SYNGENTA/index.html">SYNGENTA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/UPL/index.html">UPL</a>
+</div>
 
 <section class="contatti">
     <h3>Contatti</h3>
@@ -144,7 +175,7 @@
 
     <div class="contatto">
         <strong>Giacomo Lion</strong><br>
-        Responsabile Assistenza Tecnica e Supporto Agronomico<br>
+        Assistenza tecnica e supporto agronomico<br>
         📧 coseag@gmail.com<br>
         ☎️ +39 340 371 6236
     </div>
@@ -163,11 +194,11 @@ searchBox.addEventListener("input", function() {
     const query = this.value.toLowerCase();
     results.innerHTML = "";
 
-    if(query === "") return;
+    if (query === "") return;
 
     const filtered = pdfList.filter(pdf => pdf.toLowerCase().includes(query));
 
-    if(filtered.length === 0){
+    if (filtered.length === 0) {
         results.innerHTML = "<li>Nessun PDF trovato</li>";
         return;
     }
