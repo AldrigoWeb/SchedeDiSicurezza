@@ -12,9 +12,10 @@
             margin: 30px auto;
             padding: 0 15px;
             color: #222;
+            background-color: #fafafa;
         }
 
-        /* TESTATA */
+        /* TESTATA AZIENDALE */
         .azienda {
             text-align: center;
             margin-bottom: 30px;
@@ -25,6 +26,9 @@
             font-size: 26px;
             color: #1f3a5f;
             letter-spacing: 0.5px;
+            display: inline-block;
+            border-bottom: 3px solid #1f3a5f;
+            padding-bottom: 6px;
         }
 
         .azienda p {
@@ -36,6 +40,7 @@
         h2 {
             font-size: 18px;
             margin-top: 30px;
+            color: #1f3a5f;
         }
 
         /* RICERCA */
@@ -92,13 +97,15 @@
             color: #1f3a5f;
             font-weight: bold;
             font-size: 14px;
-            background-color: #fafafa;
-            transition: background-color 0.2s, box-shadow 0.2s;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
         }
 
         .fornitore:hover {
             background-color: #f0f4f8;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
         }
 
         /* CONTATTI */
@@ -106,6 +113,11 @@
             margin-top: 50px;
             padding-top: 20px;
             border-top: 1px solid #ddd;
+        }
+
+        .contatti h3 {
+            color: #1f3a5f;
+            margin-bottom: 15px;
         }
 
         .contatto {
@@ -185,38 +197,19 @@
     © Andrea Aldrigo & C. SAS – Tutti i diritti riservati
 </footer>
 
+<!-- Script ricerca PDF -->
 <script src="pdfList.js"></script>
 <script>
 const searchBox = document.getElementById("searchBox");
 const results = document.getElementById("searchResults");
 
-// --- FUNZIONE PULIZIA NOMI PDF ---
-function cleanPdfName(path) {
-    let name = path.split("/").pop();      // prende il file
-    name = name.replace(".pdf", "");       // toglie estensione
-
-    // taglia dopo "_" se presente (spesso spazzatura)
-    name = name.split("_")[0];
-
-    // se contiene SDS o EU/IT, taglia prima
-    name = name.replace(/SDS/i, "");
-    name = name.replace(/EU/i, "");
-    name = name.replace(/IT/i, "");
-    name = name.replace(/FORMAT/i, "");
-
-    return name.trim();
-}
-
-// --- EVENTO RICERCA ---
 searchBox.addEventListener("input", function() {
     const query = this.value.toLowerCase();
     results.innerHTML = "";
 
     if (query === "") return;
 
-    const filtered = pdfList.filter(pdf => 
-        cleanPdfName(pdf).toLowerCase().includes(query)
-    );
+    const filtered = pdfList.filter(pdf => pdf.toLowerCase().includes(query));
 
     if (filtered.length === 0) {
         results.innerHTML = "<li>Nessun PDF trovato</li>";
@@ -225,7 +218,7 @@ searchBox.addEventListener("input", function() {
 
     filtered.forEach(pdf => {
         const li = document.createElement("li");
-        li.innerHTML = `<a href="${pdf}" target="_blank">${cleanPdfName(pdf)}</a>`;
+        li.innerHTML = `<a href="${pdf}" target="_blank">${pdf.split("/").pop()}</a>`;
         results.appendChild(li);
     });
 });
