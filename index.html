@@ -190,13 +190,33 @@
 const searchBox = document.getElementById("searchBox");
 const results = document.getElementById("searchResults");
 
+// --- FUNZIONE PULIZIA NOMI PDF ---
+function cleanPdfName(path) {
+    let name = path.split("/").pop();      // prende il file
+    name = name.replace(".pdf", "");       // toglie estensione
+
+    // taglia dopo "_" se presente (spesso spazzatura)
+    name = name.split("_")[0];
+
+    // se contiene SDS o EU/IT, taglia prima
+    name = name.replace(/SDS/i, "");
+    name = name.replace(/EU/i, "");
+    name = name.replace(/IT/i, "");
+    name = name.replace(/FORMAT/i, "");
+
+    return name.trim();
+}
+
+// --- EVENTO RICERCA ---
 searchBox.addEventListener("input", function() {
     const query = this.value.toLowerCase();
     results.innerHTML = "";
 
     if (query === "") return;
 
-    const filtered = pdfList.filter(pdf => pdf.toLowerCase().includes(query));
+    const filtered = pdfList.filter(pdf => 
+        cleanPdfName(pdf).toLowerCase().includes(query)
+    );
 
     if (filtered.length === 0) {
         results.innerHTML = "<li>Nessun PDF trovato</li>";
@@ -205,7 +225,7 @@ searchBox.addEventListener("input", function() {
 
     filtered.forEach(pdf => {
         const li = document.createElement("li");
-        li.innerHTML = `<a href="${pdf}" target="_blank">${pdf.split("/").pop()}</a>`;
+        li.innerHTML = `<a href="${pdf}" target="_blank">${cleanPdfName(pdf)}</a>`;
         results.appendChild(li);
     });
 });
@@ -213,3 +233,4 @@ searchBox.addEventListener("input", function() {
 
 </body>
 </html>
+
