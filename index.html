@@ -15,7 +15,7 @@
             background-color: #fafafa;
         }
 
-        /* TESTATA AZIENDALE */
+        /* TESTATA */
         .azienda {
             text-align: center;
             margin-bottom: 30px;
@@ -25,7 +25,6 @@
             margin: 0;
             font-size: 26px;
             color: #1f3a5f;
-            letter-spacing: 0.5px;
             display: inline-block;
             border-bottom: 3px solid #1f3a5f;
             padding-bottom: 6px;
@@ -48,7 +47,7 @@
             width: 100%;
             padding: 12px;
             font-size: 16px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             border: 1px solid #ccc;
             border-radius: 6px;
         }
@@ -59,19 +58,27 @@
         }
 
         #searchResults li {
-            margin: 4px 0;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            padding: 8px 12px;
+            transition: background 0.15s, box-shadow 0.15s;
+        }
+
+        #searchResults li:hover {
+            background: #f0f4f8;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
         }
 
         #searchResults a {
             text-decoration: none;
             color: #1f3a5f;
+            font-weight: 600;
+            font-size: 14px;
         }
 
-        #searchResults a:hover {
-            text-decoration: underline;
-        }
-
-        /* FORNITORI A BOX */
+        /* FORNITORI */
         .fornitori {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -80,36 +87,31 @@
         }
 
         @media (min-width: 600px) {
-            .fornitori {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .fornitori { grid-template-columns: repeat(3, 1fr); }
         }
 
         @media (min-width: 900px) {
-            .fornitori {
-                grid-template-columns: repeat(4, 1fr);
-            }
+            .fornitori { grid-template-columns: repeat(4, 1fr); }
         }
 
         .fornitore {
-            display: block;
             text-align: center;
             padding: 14px 10px;
             border: 1px solid #ddd;
             border-radius: 8px;
+            background: #fff;
             text-decoration: none;
             color: #1f3a5f;
             font-weight: bold;
             font-size: 14px;
-            background-color: #fff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-            transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
+            transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
         }
 
         .fornitore:hover {
-            background-color: #f0f4f8;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+            background: #f0f4f8;
             transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.12);
         }
 
         /* CONTATTI */
@@ -121,7 +123,6 @@
 
         .contatti h3 {
             color: #1f3a5f;
-            margin-bottom: 15px;
         }
 
         .contatto {
@@ -151,6 +152,7 @@
 
 <h2>Seleziona il fornitore</h2>
 <div class="fornitori">
+    <!-- fornitori invariati -->
     <a class="fornitore" href="SCHEDE_FITOSANITARI/ADAMA_ITALIA/index.html">ADAMA ITALIA</a>
     <a class="fornitore" href="SCHEDE_FITOSANITARI/ALBAUGH/index.html">ALBAUGH</a>
     <a class="fornitore" href="SCHEDE_FITOSANITARI/ARYSTA/index.html">ARYSTA</a>
@@ -178,38 +180,18 @@
     <a class="fornitore" href="SCHEDE_FITOSANITARI/UPL/index.html">UPL</a>
 </div>
 
-<section class="contatti">
-    <h3>Contatti</h3>
-
-    <div class="contatto">
-        <strong>Andrea Aldrigo</strong><br>
-        Responsabile Commerciale<br>
-        📧 goeand@gmail.com<br>
-        ☎️ +39 348 442 5820
-    </div>
-
-    <div class="contatto">
-        <strong>Giacomo Lion</strong><br>
-        Assistenza tecnica e supporto agronomico<br>
-        📧 giacomo.lion00@gmail.com<br>
-        ☎️ +39 340 371 6236
-    </div>
-</section>
-
 <footer>
     © Andrea Aldrigo & C. SAS – Tutti i diritti riservati
 </footer>
 
-<!-- Script ricerca PDF -->
 <script src="pdfList.js"></script>
 <script>
 const searchBox = document.getElementById("searchBox");
 const results = document.getElementById("searchResults");
 
-searchBox.addEventListener("input", function() {
+searchBox.addEventListener("input", function () {
     const query = this.value.toLowerCase();
     results.innerHTML = "";
-
     if (query === "") return;
 
     const filtered = pdfList.filter(pdf => pdf.toLowerCase().includes(query));
@@ -220,8 +202,12 @@ searchBox.addEventListener("input", function() {
     }
 
     filtered.forEach(pdf => {
+        const nome = pdf.split("/").pop()
+            .replace(/_/g, " ")
+            .replace(/\.pdf$/i, "");
+
         const li = document.createElement("li");
-        li.innerHTML = `<a href="${pdf}" target="_blank">${pdf.split("/").pop()}</a>`;
+        li.innerHTML = `<a href="${pdf}" target="_blank">${nome}</a>`;
         results.appendChild(li);
     });
 });
