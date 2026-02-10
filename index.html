@@ -132,8 +132,33 @@
             color: #777;
         }
     </style>
-</head>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Schede di Sicurezza – Andrea Aldrigo & C. SAS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 30px auto; padding: 0 15px; color: #222; background-color: #fafafa; }
+        .azienda { text-align: center; margin-bottom: 30px; }
+        .azienda h1 { margin: 0; font-size: 26px; color: #1f3a5f; display: inline-block; border-bottom: 3px solid #1f3a5f; padding-bottom: 6px; }
+        .azienda p { margin-top: 6px; font-size: 14px; color: #555; }
+        h2 { font-size: 18px; margin-top: 30px; color: #1f3a5f; }
+        #searchBox { width: 100%; padding: 12px; font-size: 16px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px; }
+        #searchResults { list-style: none; padding: 0; }
+        #searchResults li { margin: 4px 0; }
+        #searchResults a { text-decoration: none; color: #1f3a5f; }
+        #searchResults a:hover { text-decoration: underline; }
+        .fornitori { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
+        @media (min-width: 600px) { .fornitori { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 900px) { .fornitori { grid-template-columns: repeat(4, 1fr); } }
+        .fornitore { display: block; text-align: center; padding: 14px 10px; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #1f3a5f; font-weight: bold; font-size: 14px; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s; }
+        .fornitore:hover { background-color: #f0f4f8; box-shadow: 0 3px 6px rgba(0,0,0,0.12); transform: translateY(-2px); }
+        .contatti { margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; }
+        footer { margin-top: 40px; text-align: center; font-size: 13px; color: #777; }
+    </style>
+</head>
 <body>
 
 <header class="azienda">
@@ -143,7 +168,6 @@
 
 <h2>🔍 Ricerca rapida schede di sicurezza</h2>
 <input type="text" id="searchBox" placeholder="Scrivi il nome del prodotto…">
-<div id="resultCount"></div>
 <ul id="searchResults"></ul>
 
 <h2>Seleziona il fornitore</h2>
@@ -181,36 +205,37 @@
 
 <script src="pdfList.js"></script>
 <script>
+function cleanPdfName(filename) {
+    let name = filename.replace(".pdf", "");
+    name = name.replace(/SDS|EU|FORMAT|ITALIAN/gi, "");
+    name = name.replace(/[A-Z]{2,}-\d{2,}(-\d+)?/gi, "");
+    name = name.replace(/\d{4,}/g, "");
+    name = name.replace(/[_\-]+/g, " ");
+    return name.trim();
+}
+
 const searchBox = document.getElementById("searchBox");
 const results = document.getElementById("searchResults");
-const resultCount = document.getElementById("resultCount");
 
-searchBox.addEventListener("input", function () {
+searchBox.addEventListener("input", function() {
     const query = this.value.toLowerCase();
     results.innerHTML = "";
-    resultCount.textContent = "";
+    if (!query) return;
 
-    if (query === "") return;
+    const filtered = pdfList.filter(pdf =>
+        cleanPdfName(pdf.split("/").pop()).toLowerCase().includes(query)
+    );
 
-    const filtered = pdfList.filter(pdf => pdf.toLowerCase().includes(query));
-
-    resultCount.textContent = `${filtered.length} PDF trovati`;
-
-    if (filtered.length === 0) {
+    if (!filtered.length) {
         results.innerHTML = "<li>Nessun PDF trovato</li>";
         return;
     }
 
     filtered.forEach(pdf => {
-        let nome = pdf.split("/").pop()
-            .replace(/_/g, " ")
-            .replace(/\.pdf$/i, "");
-
-        const regex = new RegExp(`(${query})`, "ig");
-        nome = nome.replace(regex, "<mark>$1</mark>");
-
+        const fileName = pdf.split("/").pop();
+        const displayName = cleanPdfName(fileName);
         const li = document.createElement("li");
-        li.innerHTML = `<a href="${pdf}" target="_blank">${nome}</a>`;
+        li.innerHTML = `<a href="${pdf}" target="_blank">${displayName}</a>`;
         results.appendChild(li);
     });
 });
