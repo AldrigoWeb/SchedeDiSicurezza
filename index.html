@@ -15,7 +15,6 @@
             background-color: #fafafa;
         }
 
-        /* TESTATA */
         .azienda {
             text-align: center;
             margin-bottom: 30px;
@@ -47,9 +46,15 @@
             width: 100%;
             padding: 12px;
             font-size: 16px;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             border: 1px solid #ccc;
             border-radius: 6px;
+        }
+
+        #resultCount {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 10px;
         }
 
         #searchResults {
@@ -76,6 +81,12 @@
             color: #1f3a5f;
             font-weight: 600;
             font-size: 14px;
+        }
+
+        mark {
+            background: #ffe08a;
+            padding: 0 2px;
+            border-radius: 3px;
         }
 
         /* FORNITORI */
@@ -114,22 +125,6 @@
             box-shadow: 0 3px 6px rgba(0,0,0,0.12);
         }
 
-        /* CONTATTI */
-        .contatti {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-        }
-
-        .contatti h3 {
-            color: #1f3a5f;
-        }
-
-        .contatto {
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
         footer {
             margin-top: 40px;
             text-align: center;
@@ -148,11 +143,11 @@
 
 <h2>🔍 Ricerca rapida schede di sicurezza</h2>
 <input type="text" id="searchBox" placeholder="Scrivi il nome del prodotto…">
+<div id="resultCount"></div>
 <ul id="searchResults"></ul>
 
 <h2>Seleziona il fornitore</h2>
 <div class="fornitori">
-    <!-- fornitori invariati -->
     <a class="fornitore" href="SCHEDE_FITOSANITARI/ADAMA_ITALIA/index.html">ADAMA ITALIA</a>
     <a class="fornitore" href="SCHEDE_FITOSANITARI/ALBAUGH/index.html">ALBAUGH</a>
     <a class="fornitore" href="SCHEDE_FITOSANITARI/ARYSTA/index.html">ARYSTA</a>
@@ -188,13 +183,18 @@
 <script>
 const searchBox = document.getElementById("searchBox");
 const results = document.getElementById("searchResults");
+const resultCount = document.getElementById("resultCount");
 
 searchBox.addEventListener("input", function () {
     const query = this.value.toLowerCase();
     results.innerHTML = "";
+    resultCount.textContent = "";
+
     if (query === "") return;
 
     const filtered = pdfList.filter(pdf => pdf.toLowerCase().includes(query));
+
+    resultCount.textContent = `${filtered.length} PDF trovati`;
 
     if (filtered.length === 0) {
         results.innerHTML = "<li>Nessun PDF trovato</li>";
@@ -202,9 +202,12 @@ searchBox.addEventListener("input", function () {
     }
 
     filtered.forEach(pdf => {
-        const nome = pdf.split("/").pop()
+        let nome = pdf.split("/").pop()
             .replace(/_/g, " ")
             .replace(/\.pdf$/i, "");
+
+        const regex = new RegExp(`(${query})`, "ig");
+        nome = nome.replace(regex, "<mark>$1</mark>");
 
         const li = document.createElement("li");
         li.innerHTML = `<a href="${pdf}" target="_blank">${nome}</a>`;
