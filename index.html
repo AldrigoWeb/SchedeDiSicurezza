@@ -15,6 +15,7 @@
             background-color: #fafafa;
         }
 
+        /* TESTATA AZIENDALE */
         .azienda {
             text-align: center;
             margin-bottom: 30px;
@@ -46,20 +47,15 @@
             width: 100%;
             padding: 12px;
             font-size: 16px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 6px;
-        }
-
-        #resultCount {
-            font-size: 13px;
-            color: #555;
-            margin-bottom: 10px;
         }
 
         #searchResults {
             list-style: none;
             padding: 0;
+            margin: 0 0 20px 0;
         }
 
         #searchResults li {
@@ -89,7 +85,7 @@
             border-radius: 3px;
         }
 
-        /* FORNITORI */
+        /* FORNITORI A BOX */
         .fornitori {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -97,32 +93,57 @@
             margin-top: 15px;
         }
 
-        @media (min-width: 600px) {
-            .fornitori { grid-template-columns: repeat(3, 1fr); }
-        }
-
-        @media (min-width: 900px) {
-            .fornitori { grid-template-columns: repeat(4, 1fr); }
-        }
+        @media (min-width: 600px) { .fornitori { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 900px) { .fornitori { grid-template-columns: repeat(4, 1fr); } }
 
         .fornitore {
+            display: block;
             text-align: center;
             padding: 14px 10px;
             border: 1px solid #ddd;
             border-radius: 8px;
-            background: #fff;
             text-decoration: none;
             color: #1f3a5f;
             font-weight: bold;
             font-size: 14px;
+            background-color: #fff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-            transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+            transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
         }
 
         .fornitore:hover {
-            background: #f0f4f8;
-            transform: translateY(-2px);
+            background-color: #f0f4f8;
             box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        /* CONTATTI + LOGO CRA */
+        .contatti {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .contatti .info {
+            max-width: 70%;
+        }
+
+        .contatti .logoCRA img {
+            max-width: 120px;
+            display: block;
+        }
+
+        .contatti h3 {
+            color: #1f3a5f;
+            margin-bottom: 15px;
+        }
+
+        .contatto {
+            margin-bottom: 15px;
+            font-size: 14px;
         }
 
         footer {
@@ -132,33 +153,8 @@
             color: #777;
         }
     </style>
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Schede di Sicurezza – Andrea Aldrigo & C. SAS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 900px; margin: 30px auto; padding: 0 15px; color: #222; background-color: #fafafa; }
-        .azienda { text-align: center; margin-bottom: 30px; }
-        .azienda h1 { margin: 0; font-size: 26px; color: #1f3a5f; display: inline-block; border-bottom: 3px solid #1f3a5f; padding-bottom: 6px; }
-        .azienda p { margin-top: 6px; font-size: 14px; color: #555; }
-        h2 { font-size: 18px; margin-top: 30px; color: #1f3a5f; }
-        #searchBox { width: 100%; padding: 12px; font-size: 16px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px; }
-        #searchResults { list-style: none; padding: 0; }
-        #searchResults li { margin: 4px 0; }
-        #searchResults a { text-decoration: none; color: #1f3a5f; }
-        #searchResults a:hover { text-decoration: underline; }
-        .fornitori { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
-        @media (min-width: 600px) { .fornitori { grid-template-columns: repeat(3, 1fr); } }
-        @media (min-width: 900px) { .fornitori { grid-template-columns: repeat(4, 1fr); } }
-        .fornitore { display: block; text-align: center; padding: 14px 10px; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #1f3a5f; font-weight: bold; font-size: 14px; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s; }
-        .fornitore:hover { background-color: #f0f4f8; box-shadow: 0 3px 6px rgba(0,0,0,0.12); transform: translateY(-2px); }
-        .contatti { margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; }
-        footer { margin-top: 40px; text-align: center; font-size: 13px; color: #777; }
-    </style>
 </head>
+
 <body>
 
 <header class="azienda">
@@ -198,6 +194,30 @@
     <a class="fornitore" href="SCHEDE_FITOSANITARI/SYNGENTA/index.html">SYNGENTA</a>
     <a class="fornitore" href="SCHEDE_FITOSANITARI/UPL/index.html">UPL</a>
 </div>
+
+<section class="contatti">
+    <div class="info">
+        <h3>Contatti</h3>
+
+        <div class="contatto">
+            <strong>Andrea Aldrigo</strong><br>
+            Responsabile Commerciale<br>
+            📧 goeand@gmail.com<br>
+            ☎️ +39 348 442 5820
+        </div>
+
+        <div class="contatto">
+            <strong>Giacomo Lion</strong><br>
+            Assistenza tecnica e supporto agronomico<br>
+            📧 giacomo.lion00@gmail.com<br>
+            ☎️ +39 340 371 6236
+        </div>
+    </div>
+
+    <div class="logoCRA">
+        <img src="img/cra_logo.png" alt="Logo CRA">
+    </div>
+</section>
 
 <footer>
     © Andrea Aldrigo & C. SAS – Tutti i diritti riservati
@@ -243,3 +263,4 @@ searchBox.addEventListener("input", function() {
 
 </body>
 </html>
+
