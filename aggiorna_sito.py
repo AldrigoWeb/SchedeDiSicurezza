@@ -1,95 +1,131 @@
-import os
+import shutil
+import re
+from pathlib import Path
+from datetime import datetime
 
-# ============================
-# CONFIGURAZIONE
-# ============================
+BASE_DIR = Path("SCHEDE_FITOSANITARI")
+PDFLIST_FILE = Path("pdfList.js")
+INDEX_FILE = Path("index.html")
 
-cartella_principale = "SCHEDE_FITOSANITARI"
-pdfList_file = "pdfList.js"
+# =========================
+# BACKUP AUTOMATICO
+# =========================
+def backup_file(file_path):
+    if file_path.exists():
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        backup_name = file_path.with_suffix(file_path.suffix + f".backup_{timestamp}")
+        shutil.copy(file_path, backup_name)
+        print(f"Backup creato: {backup_name.name}")
 
-# ============================
-# FUNZIONI
-# ============================
+# =========================
+# GENERA pdfList.js
+# =========================
+def genera_pdf_list():
+    pdf_paths = []
 
-def rinomina_pdf(percorso_fornitore):
-    """Rinomina tutti i PDF della cartella sostituendo spazi con underscore"""
-    for file in os.listdir(percorso_fornitore):
-        if file.lower().endswith(".pdf"):
-            nuovo_nome = "_".join(file.split())
-            if nuovo_nome != file:
-                vecchio = os.path.join(percorso_fornitore, file)
-                nuovo = os.path.join(percorso_fornitore, nuovo_nome)
-                os.rename(vecchio, nuovo)
-                print(f"[RINOMINATO] {file} → {nuovo_nome}")
+    for fornitore in sorted(BASE_DIR.iterdir(), key=lambda x: x.name):
+        if fornitore.is_dir():
+            for file in sorted(fornitore.iterdir(), key=lambda x: x.name):
+                if file.is_file() and file.suffix.lower() == ".pdf":
+                    pdf_paths.append(file.as_posix())
 
-def genera_index(percorso_fornitore, fornitore):
-    """Genera index.html nella cartella del fornitore"""
-    pdf_files = [f for f in os.listdir(percorso_fornitore) if f.lower().endswith(".pdf")]
-    pdf_files.sort()
+    backup_file(PDFLIST_FILE)
 
-    content = f"""<!DOCTYPE html>
+    with open(PDFLIST_FILE, "w", encoding="utf-8") as f:
+        f.write("const pdfList = [\n")
+        for path in pdf_paths:
+            f.write(f'    "{path}",\n')
+        f.write("];\n")
+
+    print(f"pdfList.js aggiornato ({len(pdf_paths)} PDF trovati)")
+
+# =========================
+# AGGIORNA BLOCCO FORNITORI
+# =========================
+def aggiorna_index_principale():
+    if not INDEX_FILE.exists():
+        print("index.html non trovato.")
+        return
+
+    fornitori_html = []
+
+    for fornitore in sorted(BASE_DIR.iterdir(), key=lambda x: x.name):
+        if fornitore.is_dir():
+            nome_visibile = fornitore.name.replace("_", " ")
+            link = f"SCHEDE_FITOSANITARI/{fornitore.name}/index.html"
+            fornitori_html.append(
+                f'    <a class="fornitore" href="{link}">{nome_visibile}</a>'
+            )
+
+    nuovo_blocco = "<div class=\"fornitori\">\n" + "\n".join(fornitori_html) + "\n</div>"
+
+    with open(INDEX_FILE, "r", encoding="utf-8") as f:
+        contenuto = f.read()
+
+    contenuto_nuovo = re.sub(
+        r"<div class=\"fornitori\">.*?</div>",
+        nuovo_blocco,
+        contenuto,
+        flags=re.DOTALL
+    )
+
+    backup_file(INDEX_FILE)
+
+    with open(INDEX_FILE, "w", encoding="utf-8") as f:
+        f.write(contenuto_nuovo)
+
+    print("Blocco fornitori aggiornato in index.html")
+
+# =========================
+# CREA index.html FORNITORE
+# =========================
+def crea_index_fornitore():
+    for fornitore in sorted(BASE_DIR.iterdir(), key=lambda x: x.name):
+        if fornitore.is_dir():
+            index_path = fornitore / "index.html"
+
+            pdf_links = []
+            for file in sorted(fornitore.iterdir(), key=lambda x: x.name):
+                if file.is_file() and file.suffix.lower() == ".pdf":
+                    pdf_links.append(
+                        f'<li><a href="{file.name}" target="_blank">{file.name}</a></li>'
+                    )
+
+            html = f"""<!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>{fornitore}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {{ font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 15px; }}
-        h1 {{ text-align: center; }}
-        ul {{ list-style-type: none; padding: 0; }}
-        li {{ margin: 5px 0; }}
-        li a {{ text-decoration: none; color: #007bff; font-weight: bold; }}
-        li a:hover {{ text-decoration: underline; }}
-    </style>
+<meta charset="UTF-8">
+<title>{fornitore.name}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {{ font-family: Arial; max-width: 800px; margin: 40px auto; }}
+h1 {{ color: #1f3a5f; }}
+a {{ text-decoration: none; color: #1f3a5f; }}
+li {{ margin-bottom: 8px; }}
+</style>
 </head>
 <body>
-
-<h1>{fornitore}</h1>
+<h1>{fornitore.name.replace("_"," ")}</h1>
 <ul>
-"""
-    for pdf in pdf_files:
-        content += f'    <li><a href="{pdf}">{pdf}</a></li>\n'
-
-    content += f"""</ul>
-<p><a href="../index.html">⬅ Torna all'elenco fornitori</a></p>
+{''.join(pdf_links)}
+</ul>
+<p><a href="../../index.html">← Torna alla home</a></p>
 </body>
-</html>
-"""
-    index_path = os.path.join(percorso_fornitore, "index.html")
-    with open(index_path, "w", encoding="utf-8") as f:
-        f.write(content)
-    print(f"[INDEX GENERATO] {fornitore}/index.html")
+</html>"""
 
-def genera_pdfList_js(cartella_principale, output_file):
-    """Genera pdfList.js con tutti i PDF di tutti i fornitori"""
-    pdf_entries = []
-    for fornitore in os.listdir(cartella_principale):
-        percorso_fornitore = os.path.join(cartella_principale, fornitore)
-        if os.path.isdir(percorso_fornitore):
-            for file in os.listdir(percorso_fornitore):
-                if file.lower().endswith(".pdf"):
-                    path_relativo = f"{cartella_principale}/{fornitore}/{file}"
-                    pdf_entries.append(path_relativo.replace("\\", "/"))
+            with open(index_path, "w", encoding="utf-8") as f:
+                f.write(html)
 
-    pdf_entries.sort()
-    js_content = "const pdfList = [\n"
-    for pdf in pdf_entries:
-        js_content += f'    "{pdf}",\n'
-    js_content += "];\n"
+    print("Index dei fornitori rigenerati")
 
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(js_content)
-    print(f"[PDFLIST GENERATO] {output_file} ({len(pdf_entries)} PDF)")
-
-# ============================
-# SCRIPT PRINCIPALE
-# ============================
-
-for fornitore in os.listdir(cartella_principale):
-    percorso_fornitore = os.path.join(cartella_principale, fornitore)
-    if os.path.isdir(percorso_fornitore):
-        rinomina_pdf(percorso_fornitore)
-        genera_index(percorso_fornitore, fornitore)
-
-genera_pdfList_js(cartella_principale, pdfList_file)
-print("\nTUTTO AGGIORNATO ✅")
+# =========================
+# MAIN
+# =========================
+if __name__ == "__main__":
+    if not BASE_DIR.exists():
+        print("Cartella SCHEDE_FITOSANITARI non trovata.")
+    else:
+        genera_pdf_list()
+        aggiorna_index_principale()
+        crea_index_fornitore()
+        print("\nSITO AGGIORNATO CORRETTAMENTE ✅")
