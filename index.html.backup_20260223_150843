@@ -152,21 +152,7 @@
             font-size: 13px;
             color: #777;
         }
-    
-        .contatti .logoCRA {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            align-items: center;
-            justify-items: center;
-        }
-
-        .contatti .logoCRA img {
-            max-width: 120px;
-            height: auto;
-        }
-    
-</style>
+    </style>
 </head>
 
 <body>
@@ -228,7 +214,7 @@
         </div>
     </div>
 
-            <div class="logoCRA">
+        <div class="logoCRA">
         <img src="img/Kollant_logo.jpg" alt="Logo Kollant.Jpg">
         <img src="img/Upl_logo.png" alt="Logo Upl.Png">
         <img src="img/albaugh_logo.png" alt="Logo Albaugh.Png">
