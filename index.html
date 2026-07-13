@@ -190,9 +190,14 @@
     @media (min-width: 900px) { .fornitori { grid-template-columns: repeat(4, 1fr); } }
 
     .fornitore {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
         text-align: center;
+        gap: 10px;
         padding: 16px 10px;
+        min-height: 96px;
         border: 1px solid var(--riga);
         border-radius: 10px;
         text-decoration: none;
@@ -205,12 +210,49 @@
         transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s, border-color .2s;
     }
 
+    .fornitore-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        width: 100%;
+    }
+
+    .fornitore-logo img {
+        max-height: 40px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
     .fornitore:hover {
         background-color: var(--verde-scuro);
         color: var(--crema-carta);
         border-color: var(--verde-scuro);
         box-shadow: 0 6px 16px rgba(31,61,43,0.22);
         transform: translateY(-3px);
+    }
+
+    .fornitore:hover .fornitore-logo img {
+        filter: brightness(0) invert(1);
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 480px) {
+        body { padding: 0 14px 40px; }
+        .azienda { margin: 0 -14px 26px; padding: 34px 16px 26px; }
+        .azienda h1 { font-size: 25px; }
+        .azienda .tagline { font-size: 12px; letter-spacing: 1.8px; }
+        .azienda p.sub { font-size: 13.5px; }
+        .logo-mark { width: 64px; height: 64px; }
+        h2 { font-size: 17px; margin-top: 30px; }
+        #searchBox { font-size: 16px; padding: 12px 14px 12px 40px; }
+        .fornitori { gap: 10px; }
+        .fornitore { padding: 12px 8px; min-height: 84px; font-size: 12.5px; }
+        .fornitore-logo { height: 32px; }
+        .fornitore-logo img { max-height: 32px; }
+        .contatti { margin-top: 40px; gap: 22px; }
+        .contatti .logoCRA { padding: 24px 20px; flex-basis: 100%; }
+        .contatti .logoCRA img { max-width: 170px; }
     }
 
     /* ===== CONTATTI + LOGHI ===== */
@@ -259,22 +301,31 @@
     }
 
     .contatti .logoCRA {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-items: center;
-        flex: 1 1 260px;
+        justify-content: center;
+        gap: 14px;
+        flex: 0 1 300px;
         background: var(--crema-carta);
         border: 1px solid var(--riga);
-        border-radius: 10px;
-        padding: 16px;
+        border-radius: 14px;
+        padding: 36px 30px;
+        text-align: center;
     }
 
     .contatti .logoCRA img {
-        max-width: 100px;
+        max-width: 230px;
+        width: 100%;
         height: auto;
-        filter: grayscale(15%);
+    }
+
+    .contatti .logoCRA span {
+        font-size: 12.5px;
+        letter-spacing: .6px;
+        text-transform: uppercase;
+        color: var(--terra-tenue);
+        font-weight: 600;
     }
 
     footer {
@@ -341,31 +392,31 @@
     Seleziona il fornitore
 </h2>
 <div class="fornitori">
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/ADAMA_ITALIA/index.html">ADAMA ITALIA</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/ALBAUGH/index.html">ALBAUGH</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/ARYSTA/index.html">ARYSTA</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/ASCENZA/index.html">ASCENZA</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/BASF/index.html">BASF</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/BAYER/index.html">BAYER</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/CERTIS_BELCHIM/index.html">CERTIS BELCHIM</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/CORTEVA/index.html">CORTEVA</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/DIACHEM/index.html">DIACHEM</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/FMC/index.html">FMC</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/GLOBACHEM/index.html">GLOBACHEM</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/GOWAN/index.html">GOWAN</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/HELM/index.html">HELM</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/KOLLANT/index.html">KOLLANT</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/MANICA_SPA/index.html">MANICA SPA</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/NUFARM_ITALIA/index.html">NUFARM ITALIA</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/ORO_AGRI/index.html">ORO AGRI</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/RAINBOW_AGROSCIENCES/index.html">RAINBOW AGROSCIENCES</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/SCAM/index.html">SCAM</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/SERBIOS/index.html">SERBIOS</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/SHARDA/index.html">SHARDA</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/SIPCAM/index.html">SIPCAM</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/SUMITOMO/index.html">SUMITOMO</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/SYNGENTA/index.html">SYNGENTA</a>
-    <a class="fornitore" href="SCHEDE_FITOSANITARI/UPL/index.html">UPL</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/ADAMA_ITALIA/index.html"><span class="fornitore-logo"><img src="img/logo_adama.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>ADAMA ITALIA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/ALBAUGH/index.html"><span class="fornitore-logo"><img src="img/logo_albaugh.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>ALBAUGH</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/ARYSTA/index.html"><span class="fornitore-logo"><img src="img/logo_arysta.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>ARYSTA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/ASCENZA/index.html"><span class="fornitore-logo"><img src="img/logo_ascenza.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>ASCENZA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/BASF/index.html"><span class="fornitore-logo"><img src="img/logo_basf.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>BASF</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/BAYER/index.html"><span class="fornitore-logo"><img src="img/logo_bayer.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>BAYER</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/CERTIS_BELCHIM/index.html"><span class="fornitore-logo"><img src="img/logo_certisbelchim.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>CERTIS BELCHIM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/CORTEVA/index.html"><span class="fornitore-logo"><img src="img/logo_corteva.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>CORTEVA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/DIACHEM/index.html"><span class="fornitore-logo"><img src="img/logo_diachem.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>DIACHEM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/FMC/index.html"><span class="fornitore-logo"><img src="img/logo_fmc.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>FMC</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/GLOBACHEM/index.html"><span class="fornitore-logo"><img src="img/logo_globachem.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>GLOBACHEM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/GOWAN/index.html"><span class="fornitore-logo"><img src="img/logo_gowan.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>GOWAN</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/HELM/index.html"><span class="fornitore-logo"><img src="img/logo_helm.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>HELM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/KOLLANT/index.html"><span class="fornitore-logo"><img src="img/logo_kollant.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>KOLLANT</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/MANICA_SPA/index.html"><span class="fornitore-logo"><img src="img/logo_manica.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>MANICA SPA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/NUFARM_ITALIA/index.html"><span class="fornitore-logo"><img src="img/logo_nufarm.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>NUFARM ITALIA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/ORO_AGRI/index.html"><span class="fornitore-logo"><img src="img/logo_oroagri.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>ORO AGRI</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/RAINBOW_AGROSCIENCES/index.html"><span class="fornitore-logo"><img src="img/logo_rainbow.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>RAINBOW AGROSCIENCES</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SCAM/index.html"><span class="fornitore-logo"><img src="img/logo_scam.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>SCAM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SERBIOS/index.html"><span class="fornitore-logo"><img src="img/logo_serbios.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>SERBIOS</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SHARDA/index.html"><span class="fornitore-logo"><img src="img/logo_sharda.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>SHARDA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SIPCAM/index.html"><span class="fornitore-logo"><img src="img/logo_sipcam.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>SIPCAM</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SUMITOMO/index.html"><span class="fornitore-logo"><img src="img/logo_sumitomo.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>SUMITOMO</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/SYNGENTA/index.html"><span class="fornitore-logo"><img src="img/logo_syngenta.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>SYNGENTA</a>
+    <a class="fornitore" href="SCHEDE_FITOSANITARI/UPL/index.html"><span class="fornitore-logo"><img src="img/logo_upl.png" alt="" loading="lazy" onerror="this.parentElement.style.visibility='hidden'"></span>UPL</a>
 </div>
 
 <section class="contatti">
@@ -388,14 +439,8 @@
     </div>
 
     <div class="logoCRA">
-        <img src="img/Kollant_logo.jpg" alt="Logo Kollant.Jpg">
-        <img src="img/Upl_logo.png" alt="Logo Upl.Png">
-        <img src="img/albaugh_logo.png" alt="Logo Albaugh.Png">
-        <img src="img/basf_logo.png" alt="Logo Basf.Png">
-        <img src="img/bayer_logo.png" alt="Logo Bayer.Png">
-        <img src="img/certisbelchim_logo.png" alt="Logo Certisbelchim.Png">
-        <img src="img/cra_logo.png" alt="Logo Cra.Png">
-        <img src="img/syngenta_logo.png" alt="Logo Syngenta.Png">
+        <img src="img/cra_logo.png" alt="Logo Consorzio Romagnolo Agriservizi">
+        <span>Consorzio Romagnolo Agriservizi</span>
     </div>
 </section>
 
