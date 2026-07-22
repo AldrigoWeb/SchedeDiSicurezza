@@ -7,18 +7,48 @@ PDF_ROOT = os.path.join(BASE_DIR, "SCHEDE_FITOSANITARI")
 INDEX_FILE = os.path.join(BASE_DIR, "index.html")
 PDFLIST_FILE = os.path.join(BASE_DIR, "pdfList.js")
 BACKUP_DIR = os.path.join(BASE_DIR, "backup")
-IMG_DIR = os.path.join(BASE_DIR, "img")
 
-# Suffissi da rimuovere quando si costruisce il nome del file logo
-# a partire dal nome della cartella fornitore (es. ADAMA_ITALIA -> adama)
-LOGO_SUFFIXES_TO_STRIP = ["_ITALIA", "_SPA", "_AGROSCIENCES"]
-
-# Eccezioni manuali: se per qualche fornitore la regola automatica
-# non produce il nome file giusto, aggiungilo qui.
-# Esempio: "NOME_CARTELLA": "logo_nomefile.png"
-LOGO_OVERRIDES = {
-    # "ESEMPIO_FORNITORE": "logo_esempio.png",
+# ------------------------
+# MAPPATURA CARTELLA -> FILE LOGO
+# (aggiungi qui eventuali nuovi fornitori)
+# ------------------------
+LOGHI_FORNITORI = {
+    "ADAMA_ITALIA": "logo_adama.png",
+    "ALBAUGH": "logo_albaugh.png",
+    "ARYSTA": "logo_arysta.png",
+    "ASCENZA": "logo_ascenza.png",
+    "BASF": "logo_basf.png",
+    "BAYER": "logo_bayer.png",
+    "CERTIS_BELCHIM": "logo_certisbelchim.png",
+    "CORTEVA": "logo_corteva.png",
+    "DIACHEM": "logo_diachem.png",
+    "FMC": "logo_fmc.png",
+    "GLOBACHEM": "logo_globachem.png",
+    "GOWAN": "logo_gowan.png",
+    "HELM": "logo_helm.png",
+    "KOLLANT": "logo_kollant.png",
+    "MANICA_SPA": "logo_manica.png",
+    "NUFARM_ITALIA": "logo_nufarm.png",
+    "ORO_AGRI": "logo_oroagri.png",
+    "RAINBOW_AGROSCIENCES": "logo_rainbow.png",
+    "SCAM": "logo_scam.png",
+    "SERBIOS": "logo_serbios.png",
+    "SHARDA": "logo_sharda.png",
+    "SIPCAM": "logo_sipcam.png",
+    "SUMITOMO": "logo_sumitomo.png",
+    "SYNGENTA": "logo_syngenta.png",
+    "UPL": "logo_upl.png",
 }
+
+
+def logo_per_fornitore(nome_cartella):
+    if nome_cartella in LOGHI_FORNITORI:
+        return LOGHI_FORNITORI[nome_cartella]
+    # fallback per fornitori nuovi non ancora mappati:
+    # es. "NUOVO_FORNITORE" -> "logo_nuovofornitore.png"
+    slug = nome_cartella.lower().replace("_", "")
+    return f"logo_{slug}.png"
+
 
 # ------------------------
 # BACKUP
@@ -30,6 +60,7 @@ def backup_file(path):
     backup_path = os.path.join(BACKUP_DIR, f"{name}.backup_{timestamp}")
     shutil.copy2(path, backup_path)
     print(f"Backup creato: {backup_path}")
+
 
 # ------------------------
 # SCANSIONE PDF
@@ -46,6 +77,7 @@ def scan_pdfs():
     pdf_list.sort(key=lambda x: x.lower())
     return pdf_list
 
+
 # ------------------------
 # AGGIORNA pdfList.js
 # ------------------------
@@ -58,20 +90,6 @@ def update_pdf_list(pdf_list):
         f.write("];\n")
     print(f"pdfList.js aggiornato ({len(pdf_list)} PDF trovati)")
 
-# ------------------------
-# COSTRUISCE IL NOME DEL FILE LOGO A PARTIRE DALLA CARTELLA
-# ------------------------
-def logo_filename(folder_name):
-    if folder_name in LOGO_OVERRIDES:
-        return LOGO_OVERRIDES[folder_name]
-
-    name = folder_name.upper()
-    for suffix in LOGO_SUFFIXES_TO_STRIP:
-        if name.endswith(suffix):
-            name = name[: -len(suffix)]
-            break
-    name = name.replace("_", "").lower()
-    return f"logo_{name}.png"
 
 # ------------------------
 # AGGIORNA FORNITORI IN index.html
@@ -91,15 +109,11 @@ def update_index(pdf_list):
     new_block = '<div class="fornitori">\n'
     for f in fornitori:
         display_name = f.replace("_", " ")
-        logo_file = logo_filename(f)
-        logo_path = os.path.join(IMG_DIR, logo_file)
-        if not os.path.exists(logo_path):
-            print(f"  ATTENZIONE: logo mancante per '{f}' -> atteso 'img/{logo_file}' (verrà comunque generato il link, il logo semplicemente non comparirà)")
-
+        logo_file = logo_per_fornitore(f)
         new_block += (
             f'    <a class="fornitore" href="SCHEDE_FITOSANITARI/{f}/index.html">'
-            f'<span class="fornitore-logo"><img src="img/{logo_file}" alt="" loading="lazy" '
-            f'onerror="this.parentElement.style.visibility=\'hidden\'"></span>'
+            f'<span class="fornitore-logo"><img src="img/{logo_file}" alt="" '
+            f'loading="lazy" onerror="this.parentElement.style.visibility=\'hidden\'"></span>'
             f'{display_name}</a>\n'
         )
     new_block += "</div>"
@@ -114,7 +128,8 @@ def update_index(pdf_list):
     html = html[:start] + new_block + html[end:]
     with open(INDEX_FILE, "w", encoding="utf-8") as f:
         f.write(html)
-    print("Blocco fornitori aggiornato in index.html (con loghi)")
+    print("Blocco fornitori aggiornato in index.html")
+
 
 # ------------------------
 # MAIN
